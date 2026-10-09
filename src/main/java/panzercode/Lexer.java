@@ -25,6 +25,10 @@ public class Lexer {
         KEYWORDS.put("wahr", TokenType.WAHR);
         KEYWORDS.put("zis", TokenType.ZIS);
         KEYWORDS.put("Saite", TokenType.SAITE);
+        
+        // Boolean
+        KEYWORDS.put("true", TokenType.BOOLEAN);
+        KEYWORDS.put("false", TokenType.BOOLEAN);
     }
 
     private final String source;
@@ -61,6 +65,8 @@ public class Lexer {
                 current++;
             } else if (c == '"') {
                 scanString();
+            } else if (c == '\'') {
+                scanCharacter();
             } else if (Character.isDigit(c)) {
                 scanNumber();
             } else if (Character.isLetter(c)) {
@@ -99,13 +105,26 @@ public class Lexer {
 
     private void scanNumber() {
         int start = current;
-
-        // Read consecutive digits.
+        // Read the whole-number portion.
         while (current < source.length()
-                && Character.isDigit(
-                        source.charAt(current))) {
+                && Character.isDigit(source.charAt(current))) {
             current++;
         }
+
+        // If a decimal point is followed by a digit,
+        // read the fractional portion too.
+        if (current + 1 < source.length()
+                && source.charAt(current) == '.'
+                && Character.isDigit(source.charAt(current + 1))) {
+
+            current++; // Skip the decimal point.
+
+            while (current < source.length()
+                    && Character.isDigit(source.charAt(current))) {
+                current++;
+            }
+        }
+
         String number = source.substring(start, current);
         addToken(TokenType.NUMBER, number);
     }
@@ -137,6 +156,34 @@ public class Lexer {
         current++; // Include the closing quotation mark.
         String text = source.substring(start, current);
         addToken(TokenType.STRING, text);
+    }
+    
+        private void scanCharacter() {
+        int start = current;
+        int startLine = line;
+
+        current++; // Skip opening single quote.
+
+        if (current >= source.length()
+                || source.charAt(current) == '\n'
+                || source.charAt(current) == '\'') {
+            throw new RuntimeException(
+                    "Invalid character literal on line " + startLine);
+        }
+
+        current++; // Read the character itself.
+
+        if (current >= source.length()
+                || source.charAt(current) != '\'') {
+            throw new RuntimeException(
+                    "Character literal must contain exactly one character"
+                    + " on line " + startLine);
+        }
+
+        current++; // Skip closing single quote.
+
+        String text = source.substring(start, current);
+        addToken(TokenType.CHARACTER, text);
     }
 
     private void addToken(TokenType type, String lexeme) {

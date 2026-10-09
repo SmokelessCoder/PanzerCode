@@ -66,9 +66,12 @@ public class Parser {
     }
 
     // Parse a literal or variable reference.
-    private Expression expression() {
-
-        if (match(TokenType.NUMBER, TokenType.STRING)) {
+        private Expression expression() {
+        if (match(
+                TokenType.NUMBER,
+                TokenType.BOOLEAN,
+                TokenType.CHARACTER,
+                TokenType.STRING)) {
             return new LiteralExpression(previous());
         }
 
@@ -77,7 +80,8 @@ public class Parser {
         }
 
         throw error(
-                "Expected a number, string, or variable reference."
+                "Expected a number, boolean, character, string, "
+                + "or variable reference."
         );
     }
 
