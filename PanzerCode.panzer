@@ -1,3 +1,7 @@
-doblet average = 3.14;
 zahl score = 100;
-doblet wholeNumber = 5;
+doblet average = 3.14;
+wahr completed = true;
+wahr failed = false;
+zis grade = 'A';
+Saite playerName = "MingMing";
+wahr emptybool;

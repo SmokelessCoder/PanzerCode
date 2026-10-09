@@ -23,6 +23,8 @@ public enum TokenType {
 
     // Literals
     NUMBER,
+    BOOLEAN,
+    CHARACTER,
     STRING,
 
     // Operators
