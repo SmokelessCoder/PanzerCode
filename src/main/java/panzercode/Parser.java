@@ -30,8 +30,17 @@ public class Parser {
 
     // Parse a variable declaration.
     private Statement declaration() {
+        Token dataType = peek();
 
-        Token dataType = advance();
+        if (!match(
+                TokenType.ZAHL,
+                TokenType.DOBLET,
+                TokenType.WAHR,
+                TokenType.ZIS,
+                TokenType.SAITE)) {
+
+            throw error("Expected a datatype.");
+        }
 
         Token name = consume(
                 TokenType.IDENTIFIER,
