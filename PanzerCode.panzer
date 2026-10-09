@@ -1,0 +1,5 @@
+zahl score = 100;
+doblet price = 19;
+Saite name = "PanzerCode";
+Panzer(name);
+Laden score;
