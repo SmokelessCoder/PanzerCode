@@ -17,7 +17,6 @@ import java.nio.file.Path;
 public class PanzerCode {
 
     public static void main(String[] args) {
-        //This reads the file stated in the path.
         Path sourcePath = Path.of("PanzerCode.panzer");
 
         try {
