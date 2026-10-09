@@ -4,10 +4,6 @@
  */
 package panzercode;
 
-/**
- *
- * @author Raikes
- */
 public class Token {
     private final TokenType type;
     private final String lexeme;

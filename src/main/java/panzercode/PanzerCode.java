@@ -4,11 +4,6 @@
 
 package panzercode;
 
-/**
- *
- * @author Raikes
- */
-
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.io.IOException;

@@ -16,7 +16,8 @@ public enum TokenType {
     WAHR,   // boolean
     ZIS,    // char
     SAITE,  // String
-
+    // I'm putting this here cuz imma deadass forget lol
+    
     // Identifiers
     IDENTIFIER,
 
